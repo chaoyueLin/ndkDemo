@@ -38,10 +38,10 @@ Java_com_example_ndkdemo_MainActivity_exceptionNotCatchTest(JNIEnv *env, jobject
     __android_log_print(ANDROID_LOG_INFO,
                         "JNITag", "start jni func exceptionNotCatchTest");
     //int i = 10;
-    int *p=0;
-    *p=1;
+    int *p = 0;
+    *p = 1;
 
     __android_log_print(ANDROID_LOG_INFO,
                         "JNITag", "start jni func exceptionNotCatchTest2");
-    return JNI_VERSION_1_6 ;
+    return JNI_VERSION_1_6;
 }

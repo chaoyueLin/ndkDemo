@@ -38,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "exception=" + exceptionNotCatchTest());
             }
         });
+        Button bs=findViewById(R.id.b_s);
+        bs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new StringTypeOps().invoke();
+            }
+        });
     }
 
     /**
@@ -49,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
     public native void exceptionTest();
 
     public native int exceptionNotCatchTest();
+
 }

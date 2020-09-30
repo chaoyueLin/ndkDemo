@@ -36,4 +36,13 @@
         app:layout_constraintTop_toBottomOf="@+id/b_excep"
         tools:layout_editor_absoluteX="16dp" />
 
+    <Button
+        android:id="@+id/b_s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="string"
+        app:layout_constraintTop_toBottomOf="@+id/b_excep_not_catch"
+        tools:layout_editor_absoluteX="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
