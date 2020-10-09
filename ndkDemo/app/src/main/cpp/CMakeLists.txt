@@ -20,6 +20,8 @@ add_library( # Sets the name of the library.
         native-lib.cpp
         string-type-operation.cpp
         array-type-operation.cpp
+        filed_and_method_operation.cpp
+        bitmap_operation.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a
@@ -41,7 +43,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         native-lib
-
+        jnigraphics
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})

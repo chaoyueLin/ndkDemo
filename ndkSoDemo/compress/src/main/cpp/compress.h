@@ -1,6 +1,4 @@
-//
-// Created by Administrator on 12/21/2016.
-//
+
 
 #ifndef COMPRESS_COMPRESS_H
 #define COMPRESS_COMPRESS_H
@@ -11,7 +9,7 @@
 
 #include <setjmp.h>
 #include <jpeglib.h>
-
+#include <string.h>
 #define true 1
 #define false 0
 
