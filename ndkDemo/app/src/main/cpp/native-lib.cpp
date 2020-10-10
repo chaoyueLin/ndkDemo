@@ -2,6 +2,8 @@
 #include <string>
 #include <android/log.h>
 
+void move();
+
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_example_ndkdemo_MainActivity_stringFromJNI(
         JNIEnv *env,
@@ -32,14 +34,22 @@ Java_com_example_ndkdemo_MainActivity_exceptionTest(
     return;
 
 }
+
+void add() {
+    move();
+}
+
+void move() {
+    int *p = 0;
+    *p = 1;
+}
+
 extern "C"
 JNIEXPORT jint JNICALL
 Java_com_example_ndkdemo_MainActivity_exceptionNotCatchTest(JNIEnv *env, jobject thiz) {
     __android_log_print(ANDROID_LOG_INFO,
                         "JNITag", "start jni func exceptionNotCatchTest");
-    //int i = 10;
-    int *p = 0;
-    *p = 1;
+    add();
 
     __android_log_print(ANDROID_LOG_INFO,
                         "JNITag", "start jni func exceptionNotCatchTest2");
