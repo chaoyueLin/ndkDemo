@@ -18,10 +18,12 @@ add_library( # Sets the name of the library.
 
         # Provides a relative path to your source file(s).
         native-lib.cpp
+        commonutil.cpp
         string-type-operation.cpp
         array-type-operation.cpp
         filed_and_method_operation.cpp
         bitmap_operation.cpp
+        thread_operation.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a
