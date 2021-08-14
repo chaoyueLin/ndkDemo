@@ -88,7 +88,9 @@ const pstring cstr = 0; // 指向char的常量指针（const pointer），即为
 	decltype(i) e;//正确，e是int
 
 ## using
-声明,使用某个命名空间：例如 using std::cin表示使用命名空间std中的名字cin。
+using 声明,使用某个命名空间：例如 using std::cin表示使用命名空间std中的名字cin。声明语句一次只引入命名空间的一个成员
+
+using指示（using directive）：使得某个特定的命名空间中所有的名字都可见。using namespace std;
 
 ## 初始化
 拷贝初始化（copy initialization）：使用等号=将一个已有的对象拷贝到正在创建的对象。string s1=s;
@@ -227,6 +229,28 @@ sizeof expr，给出表达式
 	PF f1(int);
 	auto f1(int) ->int (*)(int* ,int);
 
+
+## 类成员指针
+### 成员指针：指可以指向类的非静态成员的指针。
+
+### 数据成员指针
+和其他指针一样，在声明成员指针时也使用*来表示当前声明的名字是一个指针。与普通指针不同的时，成员指针还必须包含成员所属的类。
+
+	// pdata可以指向一个常量(非常量)Screen对象的string成员
+	const string Screen::*pdata;
+
+	// C++11
+	auto pdata = &Screen::contents;
+
+当我们初始化一个成员指针或为成员指针赋值时，该指针没有指向任何数据。成员指针指定了成员而非该成员所属的对象，只有当解引用成员指针时才提供对象的信息。
+
+	Screen myScreen, *pScreen = &myScreen;
+	auto s = myScreen.*pdata;
+	s = pScreen->*pdata;
+
+### 成员函数指针
+因为函数调用运算符的优先级较高，所以在声明指向成员函数的指针并使用这些的指针进行函数调用时，括号必不可少：(C::*p)(parms)和(obj.*p)(args)。
+
 ## friend 友元
 友元函数：允许特定的非成员函数访问一个类的私有成员.
 
@@ -320,3 +344,33 @@ sizeof expr，给出表达式
 	
 	    return 0;
 	}
+
+友元关系不能继承
+
+	class Base{
+		friend class Pal;
+	};
+
+	class Pal{
+		
+	};
+	class D2 :public Pal{
+	public:
+		int mem(Base b){
+			return b.prot_mem;//错误，友元关系不能继承
+		}
+	};
+
+## 面向对象程序设计
+### 类型转换与继承
+派生类向基类的自动类型转换只对指针或引用类型有效，对象之间不存在类型转换。
+
+只有在派生类是使用public，protected的方式继承基类时，才可以使用派生类到基类（derived-to-base）的转换。
+
+### 访问控制与继承
+在派生类的作用域内，派生访问说明符private不会影响访问基类的protected成员。
+
+在派生类的作用域外。派生访问说明符是private,基类的方法都无法调用。派生类的派生类，也无法访问。
+
+## union
+联合(union)是一种特殊的类。一个union可以有多个数据成员，但是在任意时刻只有一个数据成员可以有值。它不能含有引用类型的成员和虚函数。
