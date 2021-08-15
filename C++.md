@@ -150,9 +150,59 @@ sizeof expr，给出表达式
 ## 显式类型转换（尽量避免）
 * static_cast：任何明确定义的类型转换，只要不包含底层const，都可以使用。 double slope = static_cast<double>(j);
 
-* dynamic_cast：支持运行时类型识别。
+* dynamic_cast：支持运行时类型识别。用于将基类的指针或引用安全地转换曾派生类的指针或引用
+
+		dynamic_cast<type*>(e)  // e必须是一个有效的指针
+		dynamic_cast<type&>(e)  // e必须是一个左值
+		dynamic_cast<type&&>(e) // e不能是左值
+		// 以上，type类型必须时一个类类型，并且通常情况下该类型应该含有虚函数。
+		// e的类型必须符合三个条件中的任意一个，它们是：
+		// 1. e的类型是目标type的公有派生类；
+		// 2. e的类型是目标type的共有基类；
+		// 3. e的类型就是目标type的类型；
+		
+		// 指针类型的dynamic_cast
+		// 假设Base类至少含有一个虚函数，Derived是Base的共有派生类。
+		if (Derived *dp = dynamic_cast<Derived*>(bp)) {
+		    // 使用dp指向的Derived对象
+		} else {    // bp指向一个Base对象
+		    // 使用dp指向的Base对象
+		}
+		
+		// 引用类型的dynamic_cast
+		void f(const Base &b) {
+		    try {
+		        const Derived &d = dynamic_cast<const Derived&>(b);
+		        // 使用b引用的Derived对象
+		    } catch (bad_cast) {
+		        // 处理类型转换失败的情况
+		    }
+		}
+
+* typeid运算符(typeid operator)，它允许程序向表达式提问：你的对象是什么类型？
+	typeid表达式的形式是typeid(e)，其中e可以是任意表达式或类型的名字，它操作的结果是一个常量对象的引用。它可以作用于任意类型的表达式。
+
+		Derived *dp = new Derived;
+		Base *bp = dp;
+		
+		if (typeid(*bp) == typeid(*dp)) {
+		    // bp和dp指向同一类型的对象
+		}
+		
+		if (typeid(*bp) == typeid(Derived)) {
+		    // bp实际指向Derived对象
+		}
+
 
 * const_cast：只能改变运算对象的底层const，一般可用于去除const性质。 const char *pc; char *p = const_cast<char*>(pc)
+
+
+## constexpr函数
+指能用于常量表达式的函数。constexpr int new_sz() {return 42;}
+
+函数的返回类型及所有形参类型都要是字面值类型。
+
+
 
 ## 函数
 ### 有返回值函数
@@ -251,6 +301,31 @@ sizeof expr，给出表达式
 ### 成员函数指针
 因为函数调用运算符的优先级较高，所以在声明指向成员函数的指针并使用这些的指针进行函数调用时，括号必不可少：(C::*p)(parms)和(obj.*p)(args)。
 
+## lambda表达式
+可以理解成是一个未命名的内联函数。
+
+形式：[capture list](parameter list) -> return type {function body}。例如：[sz](const string &a){return a.size() >= sz;}
+
+尽可能避免捕获指针或引用
+
+隐式捕获：让编译器推断捕获列表，在捕获列表中写一个&（引用方式）或=（值方式）。auto f3 = [=] {return v1;}
+
+## function类型
+可调用对象：函数，函数指针，lambda表达式，bind创建的对象,重载了函数调用的类。function是一个模板，可用来存储可调用对象。
+
+	int add(int i,int j){return i+j;}
+	
+	auto mod=[](int i,int j){return i%j;};
+	
+	struct divide{
+		int operator() (int deniminator,int divisor){
+			return denominator/divisor;
+		}
+	}
+	
+	funntion<int(int,int)>=add;
+	funntion<int(int,int)>=divide();
+	funntion<int(int,int)>=mode;
 ## friend 友元
 友元函数：允许特定的非成员函数访问一个类的私有成员.
 
