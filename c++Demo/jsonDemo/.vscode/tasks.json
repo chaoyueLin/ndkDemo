@@ -8,6 +8,7 @@
             "args": [
                 "-g",
                 "${file}",
+                "${workspaceFolder}\\leptjson.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

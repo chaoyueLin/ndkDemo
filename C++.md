@@ -92,6 +92,31 @@ using 声明,使用某个命名空间：例如 using std::cin表示使用命名�
 
 using指示（using directive）：使得某个特定的命名空间中所有的名字都可见。using namespace std;
 
+## define
+宏定义，在预处理阶段做了简单的替换
+
+	#define MAXNUM 99999
+	#define add(x, y) (x + y)
+
+如何取消宏
+
+	//定义宏
+	#define [MacroName] [MacroValue]
+	//取消宏
+	#undef [MacroName]
+
+防止重复包含头文件
+
+由于头文件包含可以嵌套，那么C文件就有可能包含多次同一个头文件，就可能出现重复定义的问题的。通过条件编译开关来避免重复包含（重复定义）
+
+	#ifndef __headerfileXXX__
+	#define __headerfileXXX__
+	…
+	文件内容
+	…
+	#endif
+
+
 ## 初始化
 拷贝初始化（copy initialization）：使用等号=将一个已有的对象拷贝到正在创建的对象。string s1=s;
 
