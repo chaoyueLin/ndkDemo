@@ -51,9 +51,8 @@ typedef int arrT[10];//表示的类型是含有10个整形的数组。
 ### 指针
 对于复合类型（指针等）不能代回原式来进行理解
 
-typedef char *pstring;  // pstring是char*的别名
-
-const pstring cstr = 0; // 指向char的常量指针（const pointer），即为(const char *) cstr = 0;
+	typedef char *pstring;  // pstring是char*的别名
+	const pstring cstr = 0; // 指向char的常量指针（const pointer），即为(const char *) cstr = 0;
 
 ## auto
 会忽略顶层const,对引用其实使用引用的对象
@@ -461,7 +460,20 @@ sizeof expr，给出表达式
 		}
 	};
 
-## 面向对象程序设计
+## 视C++为一个语言联邦
+C++是语言联邦，它综合了多种编程语言的特点，是多重范型编程语言（注意是范型，不是泛型），支持过程形式（procedural），面向对象形式（object-oriented），函数形式（functionnal），泛型形式（generic），元编程形式（meta programming）。
+
+* C：说到底C++仍是以C为基础。区块，语句，预处理器，内置数据类型，数组，指针统统来自C。
+* Object-Oreinted C++：这一部分是面向对象设计之古典守则在C++上的最直接实施。类，封装，继承，多态，virtual函数等等...
+* Template C++：这是C++泛型编程部分。
+* STL。STL是个template程序库：容器（containers），迭代器（iterators），算法（algorithms）以及函数对象（function objects）
+### 声明，定义，初始化
+
+* 所谓声明式是告诉编译器某个东西的名称和类型，但是略去细节。
+* 定义式的任务是提供声明式所遗漏的一些细节，对对象而言，定义式是编译器为此对象拨发内存地点，对function或function template而言，定义式提供了代码本体，对class或class template而言，定义式列出了他们的成员。
+* 初始化是“给予对象初值的过程”，对用户自定义类型的对象而言，初始化由构造函数执行。
+
+
 ### 类型转换与继承
 派生类向基类的自动类型转换只对指针或引用类型有效，对象之间不存在类型转换。
 
