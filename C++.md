@@ -41,6 +41,23 @@ const的引用,reference to const（对常量的引用）：指向const对象的
 * 顶层const：指针本身是个常量。
 * 底层const：指针指向的对象是个常量。拷贝时严格要求相同的底层const资格。
 
+### const修饰成员函数
+
+	//编译期就会出错
+	class CTB {
+	public:
+		std::size_t length() const;
+	private:
+		std::size_t textLength;
+		mutable std::size_t mTextLength;   // 该成员变量可以在 const 成员函数内被改变
+	};
+	std::size_t CTB::length() const
+	{
+		textLength = 2;        // 错误，const 成员函数内无法给成员赋值
+		mTextLength = 2;       // 正确
+	}
+
+
 ## typedef
 传统别名：使用typedef来定义类型的同义词。 typedef double wages;
 
@@ -472,6 +489,29 @@ C++是语言联邦，它综合了多种编程语言的特点，是多重范型�
 * 所谓声明式是告诉编译器某个东西的名称和类型，但是略去细节。
 * 定义式的任务是提供声明式所遗漏的一些细节，对对象而言，定义式是编译器为此对象拨发内存地点，对function或function template而言，定义式提供了代码本体，对class或class template而言，定义式列出了他们的成员。
 * 初始化是“给予对象初值的过程”，对用户自定义类型的对象而言，初始化由构造函数执行。
+
+### 不要混淆赋值和初始化
+赋值
+
+	class ABE {
+	public:
+		ABE(const std::string &name);
+	private:
+		std::string theName;
+		int num;
+	};
+	ABE::ABE(const std::string& name)
+	{
+		theName = name;			// 这个是赋值
+		num = 0;				// 这个也是赋值
+	}
+
+初始化
+
+	ABE::ABE(const std::string& name)
+	  : theName(name),
+	    num(0)
+	{ }
 
 
 ### 类型转换与继承
