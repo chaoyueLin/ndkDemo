@@ -16,6 +16,20 @@ int *p; //指向int型对象的指针
 
 指针存放某个对象的地址。
 
+
+1. 声明变量：C语言声明一个变量时，编译器在内存中留出一个唯一的地址单元来存储变量,如下图，变量var初始化为100，编译器将地址为1004的内存单元留给变量，并将地址1004和该变量的名称关联起来。
+
+![](./p1.png)
+
+2. 创建指针：变量var的地址是1004，是一个数字，地址的这个数字可以用另一个变量来保存它，假设这个变量为p，此时变量p未被初始化，系统为它分配了空间，但值还不确定
+
+![](./p2.png)
+
+3. 初始化指针，将变量var的地址存储到变量p中，初始化后（p=&var），p指向var，称为一个指向var的指针。指针是一个变量，它存储了另一个变量的地址。
+
+![](./p3.png)
+
+4. 声明指针：typename *p  其中typename指的是var的变量类型，可以是 short ,char ,float,因为每个类型占用的内存字节不同，short占2个字节，char占1个字节，float占4个字节，指针的值等于它指向变量的第一个字节的地址 。*是间接运算符，说明p是指针变量，与非指针变量区别开来。
 ### 指针和引用的区别
 
 * 引用本身并非一个对象，引用定义后就不能绑定到其他的对象了；指针并没有此限制，相当于变量一样使用。
@@ -513,6 +527,63 @@ C++是语言联邦，它综合了多种编程语言的特点，是多重范型�
 	    num(0)
 	{ }
 
+### 拷贝控制操作
+* 拷贝构造函数（copy constructor）
+* 拷贝赋值运算符（copy-assignment operator）
+* 移动构造函数（move constructor）
+* 移动赋值函数（move-assignement operator）
+* 析构函数（destructor）
+
+注意默认拷贝在有基础类型，类，指针下的区别
+
+		#include <iostream>
+		using namespace std;
+		
+		class CTB {
+		    public:
+		        int a;
+		};
+		
+		class B{
+		  public:
+		    int b;
+		    CTB ctb;
+		    int* c;
+		};
+		
+		int main(){
+		    int temp1=9;
+		    B b1;
+		    b1.ctb.a=1;
+		    b1.c=&temp1;
+		    
+		    B b2=b1;
+		    b2.ctb.a=2;
+		    
+		    cout << "Value is : " << &(b1.ctb) << endl;
+		    cout << "Value is : " << &(b2.ctb) << endl;
+		    cout << "Value is : " << b1.ctb.a << endl;
+		    cout << "Value is : " << b2.ctb.a << endl;
+		    cout << "Value is : " << b1.c << endl;
+		    cout << "Value is : " << b2.c << endl;
+		    cout << "Value is : " << *(b1.c) << endl;
+		    cout << "Value is : " << *(b2.c) << endl;
+		    return 0;
+		}
+
+输出为。看出基础类型和类对象都深度拷贝了。指针不是
+
+	Value is : 0x7fff405bb9d4
+	Value is : 0x7fff405bb9c4
+	Value is : 1
+	Value is : 2
+	Value is : 0x7fff405bb9ec
+	Value is : 0x7fff405bb9ec
+	Value is : 9
+	Value is : 9
+
+
+在未定义显示拷贝构造函数的情况下，系统会调用默认的拷贝函数——即浅拷贝，它能够完成成员的一一复制。当数据成员中没有指针时，浅拷贝是可行的；但当数据成员中有指针时，如果采用简单的浅拷贝，则两类中的两个指针将指向同一个地址，当对象快结束时，会调用两次析构函数，而导致指针悬挂现象
 
 ### 类型转换与继承
 派生类向基类的自动类型转换只对指针或引用类型有效，对象之间不存在类型转换。
