@@ -86,7 +86,7 @@ typedef int arrT[10];//表示的类型是含有10个整形的数组。
 	const pstring cstr = 0; // 指向char的常量指针（const pointer），即为(const char *) cstr = 0;
 
 ## auto
-会忽略顶层const,对引用其实使用引用的对象
+auto的类型推导跟模板类型推导是一样的。[理解模板类型推导](https://github.com/kelthuzadx/EffectiveModernCppChinese/blob/master/1.DeducingTypes/item1.md)，[理解auto类型推导](https://github.com/kelthuzadx/EffectiveModernCppChinese/blob/master/1.DeducingTypes/item2.md)
 
 	int i=0,&r=i;
 	auto a=r;//a是一个整数
@@ -97,13 +97,15 @@ typedef int arrT[10];//表示的类型是含有10个整形的数组。
 	auto e=$ci;//e是一个指向整数常量的指针
 
 ## decltype
+[理解decltype](https://github.com/kelthuzadx/EffectiveModernCppChinese/blob/master/1.DeducingTypes/item3.md)
+
 返回改变量的类型（包括顶层const和引用在内）
 
 	const int ci=0;&cj=ci;
 	decltype(ci) x=0;//x的类型是const int
 	decltype(cj)y=x;//y的类型是const int &,y绑定到变量x
 
-使用的表达式不是一个变量，返回表达式结果对象的类型,赋值是会产生引用的一类典型表达式，引用的类型就是左值的类型。
+使用的表达式不是一个变量，返回表达式结果对象的类型。赋值是会产生引用的一类典型表达式，引用的类型就是左值的类型。
 
 	int i=42,*p=&i,&r=i;
 	decltype(r+0) b;//正确，结果是int
