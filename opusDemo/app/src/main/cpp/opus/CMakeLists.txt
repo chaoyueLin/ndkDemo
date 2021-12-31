@@ -18,6 +18,8 @@ message(STATUS "Opus project version: ${PROJECT_VERSION}")
 project(Opus LANGUAGES C VERSION ${PROJECT_VERSION})
 include(opus_buildtype.cmake)
 
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
 option(OPUS_STACK_PROTECTOR "Use stack protection" ON)
 option(OPUS_USE_ALLOCA "Use alloca for stack arrays (on non-C99 compilers)" OFF)
 option(OPUS_CUSTOM_MODES "Enable non-Opus modes, e.g. 44.1 kHz & 2^n frames"
