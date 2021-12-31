@@ -4,7 +4,7 @@
 #include <cstring>
 
 //
-// Created by 80289193 on 2020/10/9.
+// Created by  on 2020/10/9.
 //
 
 jobject generateBitmap(JNIEnv *env, uint32_t width, uint32_t height);

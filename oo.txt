@@ -1,5 +1,5 @@
 ********** Crash dump: **********
-Build fingerprint: 'OPPO/PCRM00/OP4A9D:10/QKQ1.200216.002/1587830565:user/release-keys'
+
 #00 0x000000000000f4dc /data/app/com.example.ndkdemo-TVEd23REJz2f4Y9f1A2hNw==/lib/arm64/libnative-lib.so (Java_com_example_ndkdemo_MainActivity_exceptionNotCatchTest+32) (BuildId: 8383e394ab00de9b64844753f55e70d3c7af367c)
                                                                                                           move()
                                                                                                           D:/My Documents/Desktop/share/ndk/ndkDemo/app/src/main/cpp\native-lib.cpp:44:8
