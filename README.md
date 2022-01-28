@@ -32,20 +32,15 @@ C++11的特性主要包括下面几个方面：
 
 [C++ Primer](https://github.com/applenob/Cpp_Primer_Practice),[Effective C++](https://blog.csdn.net/SiberiaBear/article/details/106414968),[Effective Modern C++](https://github.com/kelthuzadx/EffectiveModernCppChinese),[现代 C++ 教程：高速上手 C++ 11/14/17/20](https://changkun.de/modern-cpp/zh-cn/00-preface/)
 
-## 项目
-[设计模式](https://github.com/JakubVojvoda/design-patterns-cpp)
-[json-tutorial](https://github.com/miloyip/json-tutorial)
 
-
-## JNI
+## [JNI](https://developer.android.com/training/articles/perf-jni)
 JNI开发基础可参考[https://github.com/glumes/AndroidDevWithCpp](https://github.com/glumes/AndroidDevWithCpp)
 这个例子使用JNI的对象，异常，NIO,bitmap,线程等基础示例。
-## Cmake
-Cmkae使用参考[https://juejin.cn/post/6844903678311153672](https://juejin.cn/post/6844903678311153672)
-[Android NDK 开发：CMake 使用](http://cfanr.cn/2017/08/26/Android-NDK-dev-CMake-s-usage/)
-## Crash定位,tombstone分析
-[C/C++ 编译和链接过程详解 (重定向表，导出符号表，未解决符号表)](https://www.cnblogs.com/wfwenchao/articles/4140771.html)
-[Tombstone 分析](https://www.cnblogs.com/codertian/p/5980426.html)
-[ndk-stack](https://developer.android.com/ndk/guides/ndk-stack)
-demo中有使用ndk-stack解析出调用链
+
+## [Android NDK简介](./NDK简介.md)
+
+## 项目
+[设计模式](https://github.com/JakubVojvoda/design-patterns-cpp)
+
+[json-tutorial](https://github.com/miloyip/json-tutorial)
 
