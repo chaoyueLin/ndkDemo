@@ -1,5 +1,5 @@
 //
-// Created by Administrator on 11/17/2016.
+// Created by  on 11/17/2016.
 //
 
 #ifndef COMPRESS_LOG_H
