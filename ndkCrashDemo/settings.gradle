@@ -1,2 +1,3 @@
 rootProject.name = "ndkCrashDemo"
 include ':app'
+include ':breakpad-build'
