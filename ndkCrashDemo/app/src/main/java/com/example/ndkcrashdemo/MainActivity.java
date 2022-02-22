@@ -32,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = binding.sampleText;
         tv.setOnClickListener(v -> {
-            tv.setText(stringFromJNI());
+//            tv.setText(stringFromJNI());
+            new Thread(() -> {
+                HeapBufferOverflow();
+            }).start();
         });
         initBreakPad();
     }
@@ -57,4 +60,6 @@ public class MainActivity extends AppCompatActivity {
         }
         BreakpadInit.initBreakpad(externalReportPath.getAbsolutePath());
     }
+
+    public static native void HeapBufferOverflow();
 }

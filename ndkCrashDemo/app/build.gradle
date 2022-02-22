@@ -14,9 +14,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters rootProject.ext.abiFilters.split(",")
+        }
         externalNativeBuild {
             cmake {
+                abiFilters rootProject.ext.abiFilters.split(",")
                 cppFlags "-std=c++11"
+                arguments "-DANDROID_ARM_MODE=arm", "-DANDROID_STL=c++_shared"
             }
         }
     }
@@ -53,3 +58,5 @@ dependencies {
 
     implementation project(":breakpad-build")
 }
+
+apply from: rootProject.file('gradle/sanitizer.gradle')

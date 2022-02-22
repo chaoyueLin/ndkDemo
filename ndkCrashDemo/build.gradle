@@ -23,3 +23,8 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    abiFilters = "armeabi-v7a,arm64-v8a,x86,x86_64"
+    useASAN = true
+}
