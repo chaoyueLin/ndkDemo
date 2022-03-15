@@ -105,13 +105,15 @@ auto的类型推导跟模板类型推导是一样的。[理解模板类型推导
 	decltype(ci) x=0;//x的类型是const int
 	decltype(cj)y=x;//y的类型是const int &,y绑定到变量x
 
-使用的表达式不是一个变量，返回表达式结果对象的类型。赋值是会产生引用的一类典型表达式，引用的类型就是左值的类型。
+* 使用的表达式不是一个变量，返回表达式结果对象的类型
+* 赋值是会产生引用的一类典型表达式
+* 引用的类型就是左值的类型。
 
-	int i=42,*p=&i,&r=i;
-	decltype(r+0) b;//正确，结果是int
-	decltype(*p) c;//错误，解引用指针得到引用，int&必须初始化
-	int a = 3, b = 4;
-	decltype(a = b) d = a;//正确，b是int&
+		int i=42,*p=&i,&r=i;
+		decltype(r+0) b;//正确，结果是int
+		decltype(*p) c;//错误，解引用指针得到引用，int&必须初始化
+		int a = 3, b = 4;
+		decltype(a = b) d = a;//正确，b是int&
 
 
 变量加上括号变成表达式
@@ -178,7 +180,8 @@ using指示（using directive）：使得某个特定的命名空间中所有的
 解引用 + 成员访问，it->mem等价于 (*it).mem
 
 ## 混用解引用和递增运算符
-*iter++等价于*(iter++)，递增优先级较高
+	//iter++指向下一个元素,但是返回未改变的副本
+	*iter++等价于*(iter++)，递增优先级较高
 
 	auto iter = vi.begin();
 	while (iter!=vi.end()&&*iter>=0)
@@ -191,9 +194,7 @@ using指示（using directive）：使得某个特定的命名空间中所有的
 
 sizeof并不实际计算其运算对象的值。
 两种形式：
-sizeof (type)，给出类型名
-
-sizeof expr，给出表达式
+sizeof (type)，给出类型名，sizeof expr，给出表达式
 
 可用sizeof返回数组的大小
 
