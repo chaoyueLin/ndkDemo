@@ -40,6 +40,15 @@ int *p; //指向int型对象的指针
 * 给引用赋值，修改的是该引用所关联的对象的值，而不是让引用和另一个对象相关联。
 
 ## const限定符
+const可理解为只读的变量，在预处理阶段是不存在的，直到运行阶段才会出现，加上volatile可改变
+
+
+	// 需要加上volatile修饰，运行时才能看到效果
+	const volatile int MAX_LEN  = 1024;
+
+	auto ptr = (int*)(&MAX_LEN);
+	*ptr = 2048;
+	cout << MAX_LEN << endl;      // 输出2048
 
 const对象必须初始化，且不能被改变。const int ival=1;
 
@@ -55,7 +64,7 @@ const的引用,reference to const（对常量的引用）：指向const对象的
 * 顶层const：指针本身是个常量。
 * 底层const：指针指向的对象是个常量。拷贝时严格要求相同的底层const资格。
 
-### const修饰成员函数
+### const修饰成员函数，mutable
 
 	//编译期就会出错
 	class CTB {
@@ -71,7 +80,8 @@ const的引用,reference to const（对常量的引用）：指向const对象的
 		mTextLength = 2;       // 正确
 	}
 
-
+### const &
+const & 被称为万能引用，也就是说，它可以引用任何类型，即不管是值、指针、左引用还是右引用，它都能“照单全收”。
 ## typedef
 传统别名：使用typedef来定义类型的同义词。 typedef double wages;
 
@@ -96,6 +106,11 @@ auto的类型推导跟模板类型推导是一样的。[理解模板类型推导
 	auto d=&i;//d是一个整型指针
 	auto e=$ci;//e是一个指向整数常量的指针
 
+
+auto 的“自动推导”能力只能用在“初始化”的场合。具体来说，就是赋值初始化或者花括号初始化（初始化列表、Initializer list）
+
+* auto 总是推导出“值类型”，绝不会是“引用”；
+* auto 可以附加上 const、volatile、*、& 这样的类型修饰符，得到新的类型。
 ## decltype
 [理解decltype](https://github.com/kelthuzadx/EffectiveModernCppChinese/blob/master/1.DeducingTypes/item3.md)
 
