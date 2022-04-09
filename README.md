@@ -1,18 +1,18 @@
 # NDK
 NDK特点
 ![](./ndk.png)
+
 ## C++
 
 [C++写算法](./C++写算法.md),[C++基础](./C++.md),[左值、右值与右值引用](./左值、右值与右值引用.md)
 
-与Java对比
+### 与Java对比
 
 ![](./java.png)
-
 ![](./C++.png)
 
 
-## 视C++为一个语言联邦
+### 视C++为一个语言联邦
 C++是语言联邦，它综合了多种编程语言的特点，是多重范型编程语言（注意是范型，不是泛型），支持过程形式（procedural），面向对象形式（object-oriented），函数形式（functionnal），泛型形式（generic），元编程形式（meta programming）。
 
 * C：说到底C++仍是以C为基础。区块，语句，预处理器，内置数据类型，数组，指针统统来自C。
@@ -20,7 +20,7 @@ C++是语言联邦，它综合了多种编程语言的特点，是多重范型�
 * Template C++：这是C++泛型编程部分。
 * STL。STL是个template程序库：容器（containers），迭代器（iterators），算法（algorithms）以及函数对象（function objects）
 
-## C++11的特性
+### C++11的特性
 C++11的特性主要包括下面几个方面：
 
 * 提高运行效率的语言特性：右值引用、泛化常量表达式
@@ -28,7 +28,7 @@ C++11的特性主要包括下面几个方面：
 * 语言能力的提升：空指针nullptr、default和delete、长整数、静态assert
 * C++标准库的更新：智能指针、正则表达式、哈希表等
 
-## 参考文章
+### 参考文章
 
 [C++ Primer](https://github.com/applenob/Cpp_Primer_Practice),[Effective C++](https://blog.csdn.net/SiberiaBear/article/details/106414968),[Effective Modern C++](https://github.com/kelthuzadx/EffectiveModernCppChinese),[现代 C++ 教程：高速上手 C++ 11/14/17/20](https://changkun.de/modern-cpp/zh-cn/00-preface/)
 
@@ -38,6 +38,8 @@ JNI开发基础可参考[https://github.com/glumes/AndroidDevWithCpp](https://gi
 这个例子使用JNI的对象，异常，NIO,bitmap,线程等基础示例。
 
 ## [Android NDK简介](./NDK简介.md)
+
+[静态链接和动态链接](/静态链接和动态链接/静态链接和动态链接.md)
 
 ## 项目
 [设计模式](https://github.com/JakubVojvoda/design-patterns-cpp)
