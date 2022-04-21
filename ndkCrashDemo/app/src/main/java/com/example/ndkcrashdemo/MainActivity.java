@@ -1,13 +1,11 @@
 package com.example.ndkcrashdemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.ndkcrashdemo.databinding.ActivityMainBinding;
-import com.sample.breakpad.BreakpadInit;
 
 import java.io.File;
 
@@ -34,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         tv.setOnClickListener(v -> {
 //            tv.setText(stringFromJNI());
             new Thread(() -> {
-                HeapBufferOverflow();
+                stringFromJNI();
             }).start();
         });
-        initBreakPad();
+        xcrash.XCrash.init(this);
+//        initBreakPad();
     }
 
     /**
@@ -52,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
      * 做进一步的分析
      */
     private void initBreakPad() {
-        if (externalReportPath == null) {
-            externalReportPath = new File(getExternalCacheDir(), "crashDump");
-            if (!externalReportPath.exists()) {
-                externalReportPath.mkdirs();
-            }
-        }
-        BreakpadInit.initBreakpad(externalReportPath.getAbsolutePath());
+//        if (externalReportPath == null) {
+//            externalReportPath = new File(getExternalCacheDir(), "crashDump");
+//            if (!externalReportPath.exists()) {
+//                externalReportPath.mkdirs();
+//            }
+//        }
+//        BreakpadInit.initBreakpad(externalReportPath.getAbsolutePath());
     }
 
     public static native void HeapBufferOverflow();

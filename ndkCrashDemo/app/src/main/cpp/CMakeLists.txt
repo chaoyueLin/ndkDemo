@@ -47,5 +47,5 @@ target_link_libraries( # Specifies the target library.
                        # included in the NDK.
                        ${log-lib} )
 
-target_compile_options(native-lib PUBLIC -fsanitize=address -fno-omit-frame-pointer)
-set_target_properties(native-lib PROPERTIES LINK_FLAGS -fsanitize=address)
+#target_compile_options(native-lib PUBLIC -fsanitize=address -fno-omit-frame-pointer)
+#set_target_properties(native-lib PROPERTIES LINK_FLAGS -fsanitize=address)
