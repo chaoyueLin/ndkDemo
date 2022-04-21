@@ -1,6 +1,7 @@
 package com.example.ndkcrashdemo;
 
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,23 +21,24 @@ public class MainActivity extends AppCompatActivity {
 
     private File externalReportPath;
 
+    private EditText mEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //测试XCrash捕获
+        xcrash.XCrash.init(this);
+        //测试BreakPad捕获
+//        initBreakPad();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Example of a call to a native method
         TextView tv = binding.sampleText;
-        tv.setOnClickListener(v -> {
-//            tv.setText(stringFromJNI());
-            new Thread(() -> {
-                stringFromJNI();
-            }).start();
-        });
-        xcrash.XCrash.init(this);
-//        initBreakPad();
+        tv.setOnClickListener(v -> new Thread(() -> stringFromJNI()).start());
+        mEditText = binding.strCount;
+        binding.button.setOnClickListener(v -> onTestLocalRefOverflow());
     }
 
     /**
@@ -60,5 +62,25 @@ public class MainActivity extends AppCompatActivity {
 //        BreakpadInit.initBreakpad(externalReportPath.getAbsolutePath());
     }
 
+    /**
+     * 测试sanitize
+     */
     public static native void HeapBufferOverflow();
+
+    /**
+     * 测试Jni错误
+     *
+     * @param count
+     * @param sample
+     * @return
+     */
+    public native String[] getStrings(int count, String sample);
+
+    public void onTestLocalRefOverflow() {
+        String[] strings = getStrings(Integer.parseInt(mEditText.getText().toString()), "I Love You %d Year！！！");
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
 }
