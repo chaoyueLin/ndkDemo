@@ -67,20 +67,5 @@ public class MainActivity extends AppCompatActivity {
      */
     public static native void HeapBufferOverflow();
 
-    /**
-     * 测试Jni错误
-     *
-     * @param count
-     * @param sample
-     * @return
-     */
-    public native String[] getStrings(int count, String sample);
-
-    public void onTestLocalRefOverflow() {
-        String[] strings = getStrings(Integer.parseInt(mEditText.getText().toString()), "I Love You %d Year！！！");
-        for (String string : strings) {
-            System.out.println(string);
-        }
-    }
 
 }

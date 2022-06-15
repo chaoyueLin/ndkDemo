@@ -4,11 +4,11 @@
 
 #include <stdio.h>
 #include "thread_operation.h"
-#include "commonutil.h"
 
 void *run(void *);
 
 void *printThreadHello(void *);
+void throwByName(JNIEnv *env, const char *name, const char *msg);
 
 static jmethodID printThreadName;
 static jmethodID printNativeMsg;
@@ -30,14 +30,14 @@ JNIEXPORT int JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_nativeInit(JNIEnv *env, jobject jobj) {
-    jclass jcls =env->GetObjectClass(jobj);
+Java_com_example_ndkdemo_ThreadOperation_nativeInit(JNIEnv *env, jobject jobj) {
+    jclass jcls = env->GetObjectClass(jobj);
     printThreadName = env->GetMethodID(jcls, "printThreadName", "()V");
     printNativeMsg = env->GetMethodID(jcls, "printNativeMsg", "(Ljava/lang/String;)V");
     if (gObj == NULL) {
         gObj = env->NewGlobalRef(jobj);
     }
-    //    C函数的多线程编程中，互斥锁的初始化,pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+    //C函数的多线程编程中，互斥锁的初始化,pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
     if (pthread_mutex_init(&mutex, NULL) != 0) {
         throwByName(env, runtimeException, "Unable to initialize mutex");
     }
@@ -45,7 +45,7 @@ Java_com_example_ndkdemo_ThreadOps_nativeInit(JNIEnv *env, jobject jobj) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_nativeFree(JNIEnv *env, jobject thiz) {
+Java_com_example_ndkdemo_ThreadOperation_nativeFree(JNIEnv *env, jobject thiz) {
     if (gObj != NULL) {
         env->DeleteGlobalRef(gObj);
         gObj = NULL;
@@ -57,7 +57,7 @@ Java_com_example_ndkdemo_ThreadOps_nativeFree(JNIEnv *env, jobject thiz) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_createNativeThread(JNIEnv *env, jobject thiz) {
+Java_com_example_ndkdemo_ThreadOperation_createNativeThread(JNIEnv *env, jobject thiz) {
     pthread_t handles;
     int result = pthread_create(&handles, NULL, printThreadHello, NULL);
     if (result != 0) {
@@ -69,8 +69,8 @@ Java_com_example_ndkdemo_ThreadOps_createNativeThread(JNIEnv *env, jobject thiz)
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_posixThreads(JNIEnv *env, jobject thiz, jint num,
-                                                jint iterations) {
+Java_com_example_ndkdemo_ThreadOperation_posixThreads(JNIEnv *env, jobject thiz, jint num,
+                                                      jint iterations) {
     pthread_t *handles = new pthread_t[num];
     for (int i = 0; i < num; ++i) {
         pthread_t pthread;
@@ -90,7 +90,7 @@ Java_com_example_ndkdemo_ThreadOps_posixThreads(JNIEnv *env, jobject thiz, jint 
         if (pthread_join(handles[i], &result) != 0) {
             throwByName(env, runtimeException, "Unable to join thread");
         } else {
-            LOGD("return value is %d",result);
+            LOGD("return value is %d", result);
             char message[26];
             sprintf(message, "Worker %d returned %d", i, result);
             jstring msg = env->NewStringUTF(message);
@@ -114,13 +114,10 @@ void *run(void *args) {
     ThreadRunArgs *threadRunArgs = (ThreadRunArgs *) args;
 
     if (gVm->AttachCurrentThread(&env, NULL) == 0) {
-
         if (pthread_mutex_lock(&mutex) != 0) {
             throwByName(env, runtimeException, "Unable to lock mutex");
         }
-
         env->CallVoidMethod(gObj, printThreadName);
-
         if (pthread_mutex_unlock(&mutex)) {
             throwByName(env, runtimeException, "Unable to unlock mutex");
         }
@@ -134,4 +131,12 @@ void *run(void *args) {
 void *printThreadHello(void *) {
     LOGD("hello thread");
     return NULL;
+}
+
+void throwByName(JNIEnv *env, const char *name, const char *msg) {
+    jclass cls = env->FindClass(name);
+    if (cls != NULL) {
+        env->ThrowNew(cls, msg);
+    }
+    env->DeleteLocalRef(cls);
 }

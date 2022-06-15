@@ -13,12 +13,8 @@ import android.util.Log;
  * * <author>   <date>     <version>     <desc>
  * * linchaoyue 2020/9/30    1.0         create
  ******************************************************************/
-public class StringTypeOps {
+public class StringTypeOperation {
     private static final String TAG = "StringTypeOps";
-
-    static {
-        System.loadLibrary("native-lib");
-    }
 
     public void invoke() {
         String str = "hello";

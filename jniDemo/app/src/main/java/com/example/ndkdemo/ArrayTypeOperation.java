@@ -11,21 +11,13 @@ package com.example.ndkdemo;
  * * <author>   <date>     <version>     <desc>
  * * linchaoyue 2020/9/30    1.0         create
  ******************************************************************/
-public class ArrayTypeOps {
+public class ArrayTypeOperation {
 
 
     public void invoke() {
 
     }
 
-    private native void primitiveTypeArray(int[] intArray,
-                                           float[] floatArray,
-                                           double[] doubleArray,
-                                           short[] shortArray,
-                                           long[] longArray,
-                                           boolean[] boolArray,
-                                           char[] charArray,
-                                           byte[] byteArray);
 
     // Java 传递 数组 到 Native 进行数组求和
     private native int intArraySum(int[] intArray, int size);

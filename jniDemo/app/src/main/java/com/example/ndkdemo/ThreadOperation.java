@@ -13,7 +13,7 @@ import android.util.Log;
  * * <author>   <date>     <version>     <desc>
  * * linchaoyue 2020/10/26    1.0         create
  ******************************************************************/
-public class ThreadOps {
+public class ThreadOperation {
     private static final String TAG = "ThreadOps";
 
     public void invoke() {

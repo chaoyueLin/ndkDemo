@@ -3,10 +3,11 @@ package com.example.ndkdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.sql.Array;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -24,25 +25,30 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
-        Button button = findViewById(R.id.b_excep);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exceptionTest();
-            }
-        });
-        Button bnc = findViewById(R.id.b_excep_not_catch);
-        bnc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "exception=" + exceptionNotCatchTest());
-            }
-        });
-        Button bs=findViewById(R.id.b_s);
+        Button arrayB = findViewById(R.id.array);
+        Button bs = findViewById(R.id.b_s);
+        Button refB = findViewById(R.id.ref);
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new StringTypeOps().invoke();
+                new StringTypeOperation().invoke();
+            }
+        });
+        arrayB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ArrayTypeOperation().invoke();
+            }
+        });
+        refB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new RefOperaton().invoke();
+                    }
+                }).start();
             }
         });
     }
@@ -53,8 +59,5 @@ public class MainActivity extends AppCompatActivity {
      */
     public native String stringFromJNI();
 
-    public native void exceptionTest();
-
-    public native int exceptionNotCatchTest();
 
 }

@@ -18,31 +18,54 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.044" />
 
-    <Button
-        android:id="@+id/b_excep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="exceptionTest"
-        app:layout_constraintTop_toBottomOf="@+id/sample_text"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <Button
-        android:id="@+id/b_excep_not_catch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="excep_not_catch"
-        app:layout_constraintTop_toBottomOf="@+id/b_excep"
-        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/b_s"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:text="string"
-        app:layout_constraintTop_toBottomOf="@+id/b_excep_not_catch"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/sample_text"
+        tools:layout_editor_absoluteX="30dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/array"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:text="array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b_s" />
+
+    <Button
+        android:id="@+id/fieldMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:text="fieldMethod"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/array" />
+
+    <Button
+        android:id="@+id/thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="thread"
+        app:layout_constraintTop_toBottomOf="@+id/fieldMethod"
+        tools:layout_editor_absoluteX="30dp" />
+
+    <Button
+        android:id="@+id/ref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:text="ref"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thread" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,9 @@
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_FieldAndMethodOps_accessInstanceFiled(JNIEnv
+Java_com_example_ndkdemo_FieldAndMethodOperation_accessInstanceFiled(JNIEnv
 * env,
-jobject thiz, jobject
+                                                                     jobject thiz, jobject
 animal) {
     jfieldID fid; // 想要获取的字段 id
     jstring jstr; // 字段对应的具体的值
@@ -35,9 +35,9 @@ animal) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_FieldAndMethodOps_accessStaticField(JNIEnv
+Java_com_example_ndkdemo_FieldAndMethodOperation_accessStaticField(JNIEnv
 * env,
-jobject thiz, jobject
+                                                                   jobject thiz, jobject
 animal) {
     jfieldID fid;
     jint num;
@@ -53,9 +53,9 @@ animal) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_FieldAndMethodOps_callInstanceMethod(JNIEnv
+Java_com_example_ndkdemo_FieldAndMethodOperation_callInstanceMethod(JNIEnv
 * env,
-jobject thiz, jobject
+                                                                    jobject thiz, jobject
 animal) {
     jclass cls = env->GetObjectClass(animal); // 获得具体的类
     jmethodID mid = env->GetMethodID(cls, "callInstanceMethod", "(I)V"); // 获得具体的方法 id
@@ -67,9 +67,9 @@ animal) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_FieldAndMethodOps_callStaticMethod(JNIEnv
+Java_com_example_ndkdemo_FieldAndMethodOperation_callStaticMethod(JNIEnv
 * env,
-jobject thiz, jobject
+                                                                  jobject thiz, jobject
 animal) {
     jclass cls = env->GetObjectClass(animal);
     jmethodID argsmid = env->GetStaticMethodID(cls, "callStaticMethod",

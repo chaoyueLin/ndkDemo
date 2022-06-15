@@ -16,31 +16,18 @@ struct ThreadRunArgs {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_nativeInit(JNIEnv
-* env,
-jobject thiz
-);
+Java_com_example_ndkdemo_ThreadOperation_nativeInit(JNIEnv *env, jobject thiz);
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_nativeFree(JNIEnv
-* env,
-jobject thiz
-);
+Java_com_example_ndkdemo_ThreadOperation_nativeFree(JNIEnv *env, jobject thiz);
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_createNativeThread(JNIEnv
-* env,
-jobject thiz
-);
+Java_com_example_ndkdemo_ThreadOperation_createNativeThread(JNIEnv *env, jobject thiz);
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_ndkdemo_ThreadOps_posixThreads(JNIEnv
-* env,
-jobject thiz, jint
-threads,
-jint iterations
-);
+Java_com_example_ndkdemo_ThreadOperation_posixThreads(JNIEnv *env, jobject thiz, jint threads,
+                                                      jint iterations);
 #endif //NDKDEMO_THREAD_OPERATION_H
