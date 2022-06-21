@@ -23,6 +23,7 @@ add_library( # Sets the name of the library.
         filed_and_method_operation.cpp
         thread_operation.cpp
         ref_operation.cpp
+        exception_operation.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a

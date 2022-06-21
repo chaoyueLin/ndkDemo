@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Button arrayB = findViewById(R.id.array);
         Button bs = findViewById(R.id.b_s);
         Button refB = findViewById(R.id.ref);
+        Button excepB = findViewById(R.id.excep);
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                         new RefOperaton().invoke();
                     }
                 }).start();
+            }
+        });
+        excepB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ExceptionOperation().invoke();
             }
         });
     }
