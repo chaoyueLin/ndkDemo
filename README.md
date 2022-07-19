@@ -1,12 +1,15 @@
 # NDK
-NDK特点
+
 ![](./ndk.png)
 
-## [JNI](https://developer.android.com/training/articles/perf-jni)
+## JNI
+[JNI原理](./JNI.md)
+
 JNI开发基础可参考[https://github.com/glumes/AndroidDevWithCpp](https://github.com/glumes/AndroidDevWithCpp)
 这个例子使用JNI的对象，异常，NIO,bitmap,线程等基础示例。
 
-## [Android NDK简介](./NDK简介.md)
+## Android NDK
+[Android NDK简介](./NDK简介.md)
 
 [静态链接和动态链接](/静态链接和动态链接/静态链接和动态链接.md)
 

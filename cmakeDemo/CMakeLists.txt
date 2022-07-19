@@ -2,13 +2,7 @@ cmake_minimum_required(VERSION 3.10.2)
 project(cmakeDemo)
 
 
-add_library(myso SHARED Native.c)
+add_executable(${PROJECT_NAME} main.cpp )
 
-set_target_properties(myso
-                      PROPERTIES
-                      LIBRARY_OUTPUT_DIRECTORY
-                      "${CMAKE_CURRENT_SOURCE_DIR}/lib")
-
-
-target_link_libraries(myso
-                     log)
+install(TARGETS ${PROJECT_NAME}
+  RUNTIME DESTINATION ${PROJECT_SOURCE_DIR})
