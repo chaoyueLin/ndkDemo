@@ -1,7 +1,0 @@
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/cmakeDemo.dir
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/install/local.dir
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/install.dir
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/edit_cache.dir
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/rebuild_cache.dir
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/list_install_components.dir
-D:/Users/Desktop/share/ndkDemo/cmakeDemo/build/x86_64/CMakeFiles/install/strip.dir
