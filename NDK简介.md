@@ -78,20 +78,100 @@ makefile可以这么写
 
 **注意：makefile是跟平台相关的**
 ### Cmake
-交叉编译是在一个平台上生成另一个平台上的可执行代码。比如，我们在Windows平台上，可使用Visual C++开发环境，编写程序并编译成可执行程序。这种方式下，我们使用PC平台上的Windows工具开发针对Windows本身的可执行程序，这种编译过程称为native compilation（本机编译）。
-
-然而，在进行嵌入式系统的开发时，运行程序的目标平台通常具有有限的存储空间和运算能力，比如常见的ARM平台，其一般的静态存储空间大概是16到32MB，而CPU的主频大概在100MHz到500MHz之间。这种情况下，在ARM平台上进行本机编译就不太可能了，这是因为一般的编译工具链（compilation tool chain）需要很大的存储空间，并需要很强的CPU运算能力。为了解决这个问题，交叉编译工具就应运而生了。通过交叉编译工具，我们就可以在CPU能力很强、存储空间足够的主机平台上（比如PC上）编译出针对其他平台的可执行程序。
-
-​要进行交叉编译，我们需要在主机平台上安装对应的交叉编译工具链（cross compilation tool chain），然后用这个交叉编译工具链编译我们的源代码，最终生成可在目标平台上运行的代码。
-
 CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性,类似UNIX下的automake。 CMake 的组态档取名为 CMakeLists.txt。Cmake 并不直接建构出最终的软件，而是产生标准的建构档（如 Unix 的 Makefile 或 Windows Visual C++ 的 projects/workspaces），然后再依一般的建构方式使用。
 
+CMake生成器负责为底层构建系统编写输入文件(例如Makefile)。运行cmake--help将显示可用的生成器。对于cmake v2.8.12.2，我的系统支持的生成器包括：
 
-**Cmkae使用参考**
+	Generators
+	
+	The following generators are available on this platform:
+	  Unix Makefiles              = Generates standard UNIX makefiles.
+	  Ninja                       = Generates build.ninja files (experimental).
+	  CodeBlocks - Ninja          = Generates CodeBlocks project files.
+	  CodeBlocks - Unix Makefiles = Generates CodeBlocks project files.
+	  Eclipse CDT4 - Ninja        = Generates Eclipse CDT 4.0 project files.
+	  Eclipse CDT4 - Unix Makefiles
+	                              = Generates Eclipse CDT 4.0 project files.
+	  KDevelop3                   = Generates KDevelop 3 project files.
+	  KDevelop3 - Unix Makefiles  = Generates KDevelop 3 project files.
+	  Sublime Text 2 - Ninja      = Generates Sublime Text 2 project files.
+	  Sublime Text 2 - Unix Makefiles
+	                              = Generates Sublime Text 2 project files.Generators
 
-[Android NDK 开发之 CMake 必知必会](https://juejin.cn/post/6844903678311153672)
+命令行生成工具生成器
 
-[Android NDK 开发：CMake 使用](http://cfanr.cn/2017/08/26/Android-NDK-dev-CMake-s-usage/)
+这些生成器用于命令行构建工具，如Make和Ninja。在使用CMake生成构建系统之前，必须配置所选的工具链。
+支持的生成器包括：
+
+* Borland Makefiles
+* MSYS Makefiles
+* MinGW Makefiles
+* NMake Makefiles
+* NMake Makefiles JOM
+* Ninja
+* Unix Makefiles
+* Watcom WMake
+
+IDE构建工具生成器
+
+这些生成器用于集成开发环境，其中包括它们自己的编译器。例如Visual Studio和Xcode，它们本身就包含一个编译器。
+支持的生成器包括：
+
+* Visual Studio 6
+* Visual Studio 7
+* Visual Studio 7 .NET 2003
+* Visual Studio 8 2005
+* Visual Studio 9 2008
+* Visual Studio 10 2010
+* Visual Studio 11 2012
+* Visual Studio 12 2013
+* Xcode
+
+### Ninja
+Ninja是一个专注于速度的构建系统，和其他构建系统相比，主要有两点不同：
+Ninja的输入文件一般都是有更高级的构建系统产生的，比如cmake；
+Ninja设计之初就是为了更快的构建；
+ 其实从第一点，我们就能看出来Ninja的设计哲学：相比Makefile是设计出来给人手写的，但是Ninja设计出来是给其它程序生成的。 如果说Makefile是C语言，那么Ninja就是汇编语言。 如果说Makefile是一个DSL，那么Ninja就是一种配置文件。 Makefile支持分支、循环等流程控制，而Ninja只支持一些固定形式的配置。
+
+简单使用，工程目录有以下文件：
+bar.c中定义了一个变量和函数，供foo.c调用:
+
+	// Filename:  bar.c
+	#include "bar.h"
+	#include <stdio.h>
+	
+	int g_bar = 0;
+	
+	int run_bar()
+	{
+		printf("g_bar  = %d\n", g_bar);
+		return 0;
+	}
+
+foo.c内存为
+
+	// Filename: foo.c
+	#include <stdio.h>
+	int main() 
+	{
+		int a = 10;
+		int b = 5;
+		printf("ok");
+	}
+
+ninja编译脚本内容为：
+
+	# Filename: build.ninja
+	
+	cc = g++
+	cflags = -Wall
+	
+	rule cc
+	  command = gcc $cflags -c $in -o $out
+	  description = compile .cc
+	
+	build out/bar.o: cc bar.c
+	build out/foo.o: cc foo.c
 
 ### 交叉编译
 
@@ -109,7 +189,8 @@ CMake是一个跨平台的安装（编译）工具，可以用简单的语句来
 ## Android NDK
 ### 安装
 ![](./NDK1.png)
-
+![](./NDK3.png)
+![](./NDK4.png)
 ### 配置
 
 	ndkVersion "21.4.7075529"
@@ -122,6 +203,7 @@ CMake是一个跨平台的安装（编译）工具，可以用简单的语句来
 
 ![](./NDK2.png)
 
+
 ### [Cmake](https://developer.android.com/ndk/guides/cmake?hl=zh-cn)
 
 NDK 通过工具链文件支持 CMake。工具链文件是用于自定义交叉编译工具链行为的 CMake 文件。用于 NDK 的工具链文件位于 NDK 中的 <NDK>/build/cmake/android.toolchain.cmake 内,最后会使用各种平台下的Clang[将 NDK 与其他构建系统配合使用](https://developer.android.com/ndk/guides/other_build_systems)
@@ -130,6 +212,14 @@ NDK 通过工具链文件支持 CMake。工具链文件是用于自定义交叉�
 
     $ $NDK/toolchains/llvm/prebuilt/$HOST_TAG/bin/clang++ \
         -target aarch64-linux-android21 foo.cpp
+
+
+
+**Cmkae使用参考**
+
+[Android NDK 开发之 CMake 必知必会](https://juejin.cn/post/6844903678311153672)
+
+[Android NDK 开发：CMake 使用](http://cfanr.cn/2017/08/26/Android-NDK-dev-CMake-s-usage/)
 
 
 

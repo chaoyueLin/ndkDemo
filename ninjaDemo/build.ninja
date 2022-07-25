@@ -1,0 +1,11 @@
+# Filename: build.ninja
+
+cc = g++
+cflags = -Wall
+
+rule cc
+  command = gcc $cflags -c $in -o $out
+  description = compile .cc
+
+build out/bar.o: cc bar.c
+build out/foo.o: cc foo.c
